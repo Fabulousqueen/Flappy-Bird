@@ -66,4 +66,4 @@ Open your terminal and run the following command to download the project:
 * **Game assets:** created by kosresetr55 from itch.io ([Link here](https://kosresetr55.itch.io/flappy-bird-assets-by-kosresetr55))
 
 ## ⚖️ License
-This project is licensed under the GNU GPLv3
+This project is licensed under the **GNU GPLv3 License**
