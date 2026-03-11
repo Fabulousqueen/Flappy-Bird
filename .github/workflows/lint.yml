@@ -34,6 +34,8 @@ jobs:
           if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
 
       - name: Lint with pylint
+        env:
+          PYGAME_DETECT_AVX2: 1
         run: pylint $(git ls-files '*.py') --extension-pkg-whitelist=pygame
 
       - name: Lint with flake8
