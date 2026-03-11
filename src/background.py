@@ -1,9 +1,11 @@
 """Module containing classes to manage game background elements like Sky and Ground."""
+
 import pygame
 
 
 class Background:
     """Base class for all background objects in the game."""
+
     def __init__(self, filename, pos_x, pos_y, screen):
         """Initialize background with image, position, and screen reference."""
         self.screen = screen
@@ -31,14 +33,10 @@ class Background:
 
     def draw(self):
         """Abstract method to draw the object on the screen."""
-        pass
 
 
 class Sky(Background):
     """Class representing the sky background layer."""
-    def __init__(self, filename, pos_X, pos_Y, screen):
-        """Initialize the sky layer using the parent Background class."""
-        super().__init__(filename, pos_X, pos_Y, screen)
 
     def draw(self):
         """Blit the sky surface onto the screen."""
@@ -47,6 +45,7 @@ class Sky(Background):
 
 class Ground(Background):
     """Class representing the scrolling ground with movement logic."""
+
     def __init__(self, filename, pos_x, sky_height, screen):
         """Initialize the ground and calculate its vertical position."""
         super().__init__(filename, pos_x, 0, screen)
