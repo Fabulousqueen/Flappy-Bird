@@ -1,4 +1,4 @@
-# <img src="assets/Game Objects/yellowbird-midflap.png" width = 40> Flappy-Bird
+# <img src="assets/Game Objects/yellowbird-1.png" width = 40> Flappy-Bird
 
 A Python implementation of the classic Flappy Bird game built with the Pygame library.
 
