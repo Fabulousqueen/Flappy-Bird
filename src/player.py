@@ -16,7 +16,9 @@ class Bird(pygame.sprite.Sprite):
 
         self.images = []
         for i in range(0, 3):
-            image = pygame.image.load(f"../assets/Game Objects/yellowbird-{i}.png")
+            image = pygame.image.load(
+                f"../assets/Game Objects/yellowbird-{i}.png"
+            ).convert_alpha()
             self.images.append(image)
 
         self.image_index = 0.0
@@ -63,7 +65,7 @@ class Bird(pygame.sprite.Sprite):
         self.gravity += 0.5
         self.rect.y += int(self.gravity)
 
-    def update(self, ground_line: int) -> None:
+    def update(self, ground_line: int):
         """
         Update bird logic every frame if the bird is still alive.
         ground_line indicates the Current Y position of the ground.
@@ -73,3 +75,5 @@ class Bird(pygame.sprite.Sprite):
             if self.fly:
                 self.apply_gravity()
             self.touched_ground(ground_line)
+        else:
+            return self.died
