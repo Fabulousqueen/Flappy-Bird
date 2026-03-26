@@ -1,16 +1,16 @@
 # pylint: disable=no-member
-"""Main execution script for the Flappy Bird game loop."""
-
+# pylint: disable=too-many-statements
 # pylint: disable=too-many-locals
+"""Main execution script for the Flappy Bird game loop."""
 
 import random
 import sys
-from pipes import Pipe
 
 import pygame
 
 import player
 from background import Ground, Sky
+from pipe import Pipe
 
 
 def main() -> None:
@@ -53,9 +53,9 @@ def main() -> None:
     bird_group.add(bird)
 
     pipe_group = pygame.sprite.Group()
-    SPAWNPIPE = pygame.USEREVENT
+    spawn_pipe_event = pygame.USEREVENT
     # Set a timer to trigger the SPAWNPIPE event
-    pygame.time.set_timer(SPAWNPIPE, 2750)
+    pygame.time.set_timer(spawn_pipe_event, 2750)
 
     game_loop = True
 
@@ -65,7 +65,7 @@ def main() -> None:
                 pygame.quit()
                 sys.exit()
 
-            if event.type == SPAWNPIPE and bird.fly and not bird.died:
+            if event.type == spawn_pipe_event and bird.fly and not bird.died:
                 # Generate random vertical position and gap size for the new pipes
                 random_y = random.randint(150, 350)
                 # randomize the gap
