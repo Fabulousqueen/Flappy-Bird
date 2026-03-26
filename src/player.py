@@ -75,8 +75,7 @@ class Bird(pygame.sprite.Sprite):
         """Prevent the bird from flying above the sky (screen top)."""
         if self.rect.top <= 0:
             self.rect.top = 0
-            if self.gravity < 0:
-                self.gravity = 0
+            self.gravity = max(self.gravity, 0.0)
 
     def jump(self) -> None:
         """Apply an upward impulse to the bird's gravity."""
