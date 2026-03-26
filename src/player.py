@@ -27,7 +27,7 @@ class Bird(pygame.sprite.Sprite):
         self.image_index = 0.0
 
         self.original_image = self.images[int(self.image_index)]
-        self.image = self.images[int(self.image_index)]
+        self.image = self.original_image
         self.rect = self.image.get_rect(midbottom=(pos_x, pos_y))
 
         self.gravity = 0.0
