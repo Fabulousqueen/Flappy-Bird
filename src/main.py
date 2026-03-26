@@ -52,7 +52,7 @@ def main() -> None:
     bird = player.Bird(90, 220)
     bird_group.add(bird)
 
-    pipe_group = pygame.sprite.Group()
+    pipe_group: pygame.sprite.Group = pygame.sprite.Group()
     spawn_pipe_event = pygame.USEREVENT
     # Set a timer to trigger the SPAWNPIPE event
     pygame.time.set_timer(spawn_pipe_event, 2750)
