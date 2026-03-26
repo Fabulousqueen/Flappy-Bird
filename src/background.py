@@ -9,6 +9,7 @@ import states
 
 
 class Background:
+    """Base class for background elements, providing common attributes and methods."""
 
     def __init__(self, filename: str, pos_x: int, pos_y: int, screen: pygame.Surface):
         """Initialize background with image, position, and screen reference."""
