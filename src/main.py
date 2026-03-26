@@ -14,19 +14,19 @@ def main() -> None:
     pygame.init()
     original_width = 288
     original_height = 512
-    
-    # Get the current monitor height 
+
+    # Get the current monitor height
     screen_info = pygame.display.Info()
     monitor_height = screen_info.current_h
     # Optional offset to adjust the window width if needed
     offset = 0
-    
-    # Set the window height to 85% of the monitor height 
-    window_height = int(monitor_height * 0.90)  
+
+    # Set the window height to 90% of the monitor height
+    window_height = int(monitor_height * 0.90)
     # Scale the screen dimensions
     scale = window_height / original_height
-    window_width = int(original_width * scale+offset)
-    
+    window_width = int(original_width * scale + offset)
+
     window = pygame.display.set_mode((window_width, window_height))
     pygame.display.set_caption("Flappy Bird")
     # Create a canvas surface to draw the game elements, which will be scaled to fit the window
@@ -47,7 +47,7 @@ def main() -> None:
     bird_group.add(bird)
 
     GameLoop = True
-    
+
     while GameLoop == True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -69,9 +69,11 @@ def main() -> None:
         bird.update(ground.get_pos_y())
 
         # Scale the canvas to fit the window
-        scaled_canvas = pygame.transform.smoothscale(canvas, (window_width, window_height))
+        scaled_canvas = pygame.transform.smoothscale(
+            canvas, (window_width, window_height)
+        )
         window.blit(scaled_canvas, (0, 0))
-        
+
         pygame.display.update()
         clock.tick(fps)
 
