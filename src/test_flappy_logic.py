@@ -154,3 +154,34 @@ def test_bird_hits_ground_and_dies():
     bird.update(500)
     assert bird.died is True
     assert bird.fly is False
+
+def test_pipe_does_not_move_if_not_flying():
+    """Ensures pipes respect the global game state."""
+    pipe_instance = pipe.Pipe(300, 200, 0, 100)
+    initial_x = pipe_instance.rect.x
+    pipe_instance.update(5, States.READY)
+    assert pipe_instance.rect.x == initial_x
+
+def test_pipe_kills_when_off_screen():
+    """Checks flags for pipes leaving the viewport."""
+    with patch("pipe.Pipe.pipe_bottom_surface", MagicMock()):
+        pipe_instance = pipe.Pipe(0, 200, 0, 100)
+        pipe_instance.rect.right = -100
+        pipe_instance.update(5, States.FLYING)
+        assert not pipe_instance.alive()
+
+def test_pipe_check_passed_only_once():
+    """Validates scoring idempotency."""
+    pipe_instance = pipe.Pipe(100, 200, 0, 100)
+    pipe_instance.rect.centerx = 100
+    assert pipe_instance.check_passed(110) is True
+    assert pipe_instance.check_passed(120) is False
+
+def test_ground_resets_position():
+    """Verifies the looping logic of the parallax ground."""
+    mock_screen = MagicMock(spec=pygame.Surface)
+    ground = background.Ground("base.png", 0, 500, mock_screen)
+    ground.width = 700
+    ground.pos_x = -701 
+    ground.update(0, States.FLYING) 
+    assert ground.pos_x == 0
