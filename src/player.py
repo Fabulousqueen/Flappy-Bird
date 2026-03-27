@@ -63,7 +63,7 @@ class Bird(pygame.sprite.Sprite):
         """Check if the bird's vertical position exceeds the ground line."""
         visible_bottom = self.image.get_bounding_rect().bottom
         empty_space = self.image.get_height() - visible_bottom
-        
+
         if self.rect.bottom - empty_space >= ground_line:
             self.rect.bottom = ground_line + empty_space
             # Upon hitting the ground, reset gravity.
