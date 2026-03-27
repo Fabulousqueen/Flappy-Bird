@@ -233,3 +233,10 @@ def test_game_reset_logic():
     assert bird.died is False
     assert bird.gravity == 0
     assert len(pipe_group) == 0
+
+def test_score_draw_call():
+    """Test if the score draw method executes without errors using mocks."""
+    mock_screen = MagicMock(spec=pygame.Surface)
+    s = score.Score("font1", "font2", 100, 100)
+    s.draw(mock_screen) 
+    assert mock_screen.blit.called
