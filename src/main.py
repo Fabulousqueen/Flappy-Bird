@@ -82,10 +82,16 @@ def main() -> None:
     )
 
     start_transparency = 255
+    start_transparency_target = 0
+
     gameover_transparency = 0
-    start_screen = ui.StartScreen(filename_start, 150, 305, start_transparency)
+    gameover_transparency_target = 255
+
+    start_screen = ui.StartScreen(
+        filename_start, 150, 305, start_transparency, start_transparency_target
+    )
     gameover_screen = ui.GameOverScreen(
-        filename_gameover, 150, 305, gameover_transparency
+        filename_gameover, 150, 305, gameover_transparency, gameover_transparency_target
     )
 
     game_loop = True
@@ -140,7 +146,9 @@ def main() -> None:
             if pipe.get_position() != 1 and pipe.check_passed(bird.rect.centerx):
                 actual_score.scored()
 
-        actual_score.draw(canvas)
+        actual_score.draw(
+            start_screen.target_transparency_reached(), canvas, bird_state
+        )
         # Scale the canvas to fit the window
         scaled_canvas = pygame.transform.smoothscale(
             canvas, (window_width, window_height)
