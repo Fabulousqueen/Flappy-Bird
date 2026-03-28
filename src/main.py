@@ -1,7 +1,6 @@
 # pylint: disable=no-member
 # pylint: disable=too-many-statements
 # pylint: disable=too-many-locals
-# pylint: disable=line-too-long
 """Main execution script for the Flappy Bird game loop."""
 
 import random
@@ -10,12 +9,27 @@ import sys
 import pygame
 
 import player
-import reset
 import score
 import settings
 import ui
 from background import Ground, Sky
 from pipe import Pipe
+
+
+def reset_game(bird, pipe_group):  # score_manager):
+    """Riporta il gioco allo stato iniziale."""
+    # Reset the bird's position and state
+    bird.rect.midbottom = (90, 220)
+    bird.gravity = 0
+    bird.died = False
+    bird.is_rotated_to_death = False
+    # Reset the bird's image to the original (non-rotated) state
+    bird.image = bird.original_image
+
+    pipe_group.empty()
+
+    # Reset the score manager if implemented
+    # score_manager.reset()
 
 
 def main() -> None:
@@ -109,16 +123,9 @@ def main() -> None:
                     bird.enable_fly()
                     bird.jump()
 
-            # reset the game when r or MOUSERIGHT is pressed
-            if (
-                (event.type == pygame.KEYDOWN and event.key == pygame.K_r)
-                or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 3)
-                and bird.died
-            ):
-
-                reset.reset_game(
-                    bird, pipe_group, actual_score, start_screen, gameover_screen
-                )
+            # reset the game when r is pressed
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_r and bird.died:
+                reset_game(bird, pipe_group)
 
         bird_state = bird.get_state()
         if pygame.sprite.spritecollide(
@@ -140,9 +147,7 @@ def main() -> None:
             if pipe.get_position() != 1 and pipe.check_passed(bird.rect.centerx):
                 actual_score.scored()
 
-        actual_score.draw(
-            start_screen.target_transparency_reached(), canvas, bird_state
-        )
+        actual_score.draw(canvas)
         # Scale the canvas to fit the window
         scaled_canvas = pygame.transform.smoothscale(
             canvas, (window_width, window_height)
