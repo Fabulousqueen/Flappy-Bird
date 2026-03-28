@@ -2,8 +2,8 @@
 
 # pylint: disable=protected-access
 # pylint: disable=import-outside-toplevel
+# pylint: disable=unused-import
 
-import unittest
 from unittest.mock import MagicMock, patch
 
 import pygame
