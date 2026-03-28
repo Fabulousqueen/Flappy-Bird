@@ -12,6 +12,7 @@ import pygame
 import player
 import reset
 import score
+import settings
 import ui
 from background import Ground, Sky
 from pipe import Pipe
@@ -20,8 +21,6 @@ from pipe import Pipe
 def main() -> None:
     """Initialize the game engine and manage the real-time event loop."""
     pygame.init()
-    original_width = 288
-    original_height = 512
 
     # Get the current monitor height
     screen_info = pygame.display.Info()
@@ -32,52 +31,50 @@ def main() -> None:
     # Set the window height to 90% of the monitor height
     window_height = int(monitor_height * 0.90)
     # Scale the screen dimensions
-    scale = window_height / original_height
-    window_width = int(original_width * scale + offset)
+    scale = window_height / settings.ORIGINAL_HEIGHT
+    window_width = int(settings.ORIGINAL_WIDTH * scale + offset)
 
     window = pygame.display.set_mode((window_width, window_height))
     pygame.display.set_caption("Flappy Bird")
     # Create a canvas surface to draw the game elements, which will be scaled to fit the window
-    canvas = pygame.Surface((original_width, original_height))
+    canvas = pygame.Surface((settings.ORIGINAL_WIDTH, settings.ORIGINAL_HEIGHT))
     clock = pygame.time.Clock()
-    fps = 60
-
-    velocity = 1
-
-    filename_sky = "background-day.png"
-    filename_ground = "base.png"
-    filename_start = "message.png"
-    filename_gameover = "gameover.png"
 
     # the more the offset the more the ground goes down
-    ground_offset = 560
-    sky = Sky(filename_sky, 0, 0, canvas)
-    ground = Ground(filename_ground, 0, ground_offset, canvas)
+    sky = Sky(settings.FILE_SKY, settings.SKY_POS_X, settings.SKY_POS_Y, canvas)
+    ground = Ground(
+        settings.FILE_GROUND, settings.GROUND_POS_X, settings.GROUND_POS_Y, canvas
+    )
 
     bird_group: pygame.sprite.GroupSingle = pygame.sprite.GroupSingle()
-    bird = player.Bird(90, 220)
+    bird = player.Bird(settings.BIRD_START_X, settings.BIRD_START_Y)
     bird_group.add(bird)
 
     pipe_group: pygame.sprite.Group = pygame.sprite.Group()
     spawn_pipe_event = pygame.USEREVENT
     # Set a timer to trigger the SPAWNPIPE event
-    pygame.time.set_timer(spawn_pipe_event, 2750)
+    pygame.time.set_timer(spawn_pipe_event, settings.SPAWN_PIPE_TIMER)
 
     actual_score = score.Score(
-        "flappyborder.ttf", "flappyfill.ttf", int(sky.get_width() / 2), 50
+        settings.FONT_BORDER,
+        settings.FONT_FILL,
+        int(sky.get_width() / 2),
+        settings.SCORE_POS_Y,
     )
-
-    start_transparency = 255
-    start_transparency_target = 0
-
-    gameover_transparency = 0
-    gameover_transparency_target = 255
 
     start_screen = ui.StartScreen(
-        filename_start, 150, 305, start_transparency, start_transparency_target
+        settings.FILE_START,
+        150,
+        305,
+        settings.START_TRANSPARENCY_INIT,
+        settings.START_TRANSPARENCY_TARGET,
     )
     gameover_screen = ui.GameOverScreen(
-        filename_gameover, 150, 305, gameover_transparency, gameover_transparency_target
+        settings.FILE_GAMEOVER,
+        150,
+        305,
+        settings.GAMEOVER_TRANSPARENCY_INIT,
+        settings.GAMEOVER_TRANSPARENCY_TARGET,
     )
 
     game_loop = True
@@ -91,13 +88,17 @@ def main() -> None:
 
             if event.type == spawn_pipe_event and bird.fly and not bird.died:
                 # Generate random vertical position and gap size for the new pipes
-                random_y = random.randint(150, 350)
+                random_y = random.randint(settings.PIPE_MIN_Y, settings.PIPE_MAX_Y)
                 # randomize the gap
-                random_gap = random.randint(100, 130)
+                random_gap = random.randint(
+                    settings.PIPE_GAP_MIN, settings.PIPE_GAP_MAX
+                )
 
                 # Create the pipes
-                bottom_pipe = Pipe(original_width + 50, random_y, 0, random_gap)
-                top_pipe = Pipe(original_width + 50, random_y, 1, random_gap)
+                bottom_pipe = Pipe(
+                    settings.ORIGINAL_WIDTH + 50, random_y, 0, random_gap
+                )
+                top_pipe = Pipe(settings.ORIGINAL_WIDTH + 50, random_y, 1, random_gap)
 
                 pipe_group.add(bottom_pipe, top_pipe)
 
@@ -128,8 +129,8 @@ def main() -> None:
         # Draw the game elements on the canvas
         sky.draw()
         pipe_group.draw(canvas)
-        pipe_group.update(velocity, bird_state)
-        ground.update(velocity, bird_state)
+        pipe_group.update(settings.VELOCITY, bird_state)
+        ground.update(settings.VELOCITY, bird_state)
         start_screen.draw(bird_state, canvas)
         bird_group.draw(canvas)
         bird.update(ground.get_pos_y())
@@ -149,7 +150,7 @@ def main() -> None:
         window.blit(scaled_canvas, (0, 0))
 
         pygame.display.update()
-        clock.tick(fps)
+        clock.tick(settings.FPS)
 
 
 if __name__ == "__main__":
