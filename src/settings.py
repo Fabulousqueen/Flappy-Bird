@@ -69,4 +69,4 @@ SFX_SWOOSH = "swoosh.wav"
 SFX_WING = "wing.wav"
 
 # Volumes (0.0 to 1.0)
-VOLUME_SFX = 1.0
+VOLUME_SFX = 0.5
