@@ -21,7 +21,7 @@ import score
 import ui
 from states import States
 
-# --- GLOBAL FIXTURES ---
+# ---  GLOBAL FIXTURES  ---
 
 
 @pytest.fixture(autouse=True)
