@@ -3,7 +3,7 @@
 # pylint: disable=protected-access
 # pylint: disable=import-outside-toplevel
 # pylint: disable=unused-import
-# pylint: disable=wrong-input-position
+# pylint: disable=wrong-import-position
 
 import os
 import sys
