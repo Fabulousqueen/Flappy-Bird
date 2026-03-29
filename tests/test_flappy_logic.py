@@ -3,6 +3,7 @@
 # pylint: disable=protected-access
 # pylint: disable=import-outside-toplevel
 # pylint: disable=unused-import
+# pylint: disable=wrong-input-position
 
 import os
 import sys
@@ -400,7 +401,7 @@ def test_ground_does_not_move_when_grounded():
 @patch("main.pygame.mixer.Sound")
 @patch("main.pygame.display.set_mode")
 @patch("main.pygame.display.Info")
-def test_main_game_initialization_and_quit(mock_info, mock_set_mode, mock_sound):
+def test_main_game_initialization_and_quit(mock_info, mock_set_mode, _mock_sound):
     """
     Smoke test for main.py. Verifies that the game initializes its assets
     and can cleanly exit when receiving a pygame.QUIT event.
