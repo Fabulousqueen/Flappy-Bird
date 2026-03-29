@@ -14,11 +14,16 @@ A Python implementation of the classic Flappy Bird game built with the Pygame li
 
 ## 📋 Prerequisites
 
-Before starting, ensure you have **Python 3.10 or higher** installed.
+Before starting, ensure you have **Python 3.10 to Python 3.13** installed.
 
 1.  **Download Python**: Visit the official [Python Downloads page](https://www.python.org/downloads/).
 2.  **Windows Users (Crucial)**: During installation, you **must check the box** that says **"Add Python to PATH"**.
-    
+
+If you're using Linux distro, install python via terminal by using the command
+ ```sh
+    sudo apt update && sudo apt install python3 python3-pip python3-venv
+ ```
+
 3.  **Verify**: Open your terminal and type `python --version`.
 
 ## 🛠️ Installation
@@ -31,8 +36,10 @@ Open your terminal and run the following command to download the project:
     ```sh
     git clone https://github.com/Fabulousqueen/Flappy-Bird.git
     ```
+    Then extract the content and access the folder of the project.
 
-2.  **Create a Virtual Environment (Recommended)**:
+3.  **Create a Virtual Environment (Recommended)**:
+       
     This keeps your system clean from project-specific libraries.
     
     ```sh
@@ -41,12 +48,12 @@ Open your terminal and run the following command to download the project:
     * **Activate (Windows)**: `venv\Scripts\activate`
     * **Activate (macOS/Linux)**: `source venv/bin/activate`
 
-3.  **Install dependencies**:
+4.  **Install dependencies**:
     ```sh
     pip install -r requirements.txt
     ```
 
-4.  **Launch the game**:
+5.  **Launch the game**:
     ```sh
     cd src
     python main.py
