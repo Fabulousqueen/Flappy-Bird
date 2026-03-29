@@ -12,6 +12,15 @@ A Python implementation of the classic Flappy Bird game built with the Pygame li
 
 * **Score Tracking**: Real-time score display using custom vector-based fonts.
 
+## 📋 Prerequisites
+
+Before starting, ensure you have **Python 3.10 or higher** installed.
+
+1.  **Download Python**: Visit the official [Python Downloads page](https://www.python.org/downloads/).
+2.  **Windows Users (Crucial)**: During installation, you **must check the box** that says **"Add Python to PATH"**.
+    
+3.  **Verify**: Open your terminal and type `python --version`.
+
 ## 🛠️ Installation
 
 To run this project locally on your machine, follow these steps:
@@ -22,24 +31,23 @@ Open your terminal and run the following command to download the project:
     ```sh
     git clone https://github.com/Fabulousqueen/Flappy-Bird.git
     ```
-
-2. **Navigate to the project directory:**
-
+2.  **Create a Virtual Environment (Recommended)**:
+    This keeps your system clean from project-specific libraries.
+    
     ```sh
-    cd Flappy-Bird/src
+    python -m venv venv
+    ```
+    * **Activate (Windows)**: `venv\Scripts\activate`
+    * **Activate (macOS/Linux)**: `source venv/bin/activate`
+
+3.  **Install dependencies**:
+    ```sh
+    pip install -r requirements.txt
     ```
 
-3. **Install dependencies:**
-    This project requires Pygame. You can install it using pip:
-
+4.  **Launch the game**:
     ```sh
-    pip install pygame
-    ```
-
-4. **Launch the game:**
-    Run the main script to start playing:
-
-    ```sh
+    cd src
     python main.py
     ```
 
